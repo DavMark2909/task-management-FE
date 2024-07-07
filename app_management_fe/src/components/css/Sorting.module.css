@@ -1,0 +1,46 @@
+.filter {
+    position: sticky;
+    left: 2%;
+    top: 10%; /* Also set top to 0 to ensure it stays in the top-left corner */
+    padding: 1rem;
+    max-height: 500px;
+    background-color:aliceblue;
+    height: 55vh;
+    width: 20vw;
+    min-height: 15vh;
+    text-align: center;
+    border-radius: 8px;
+    border: 2px solid aqua;
+}
+
+.check{
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+
+.check:hover{
+    background-color: aqua;
+}
+
+.check input[type="checkbox"]{
+    margin-right: 0.5rem;
+}
+
+.bottom{
+    margin-top: 20%;
+}
+
+.button{
+    width: 50%;
+    max-width: 10rem;
+    border: 1px solid cornflowerblue;
+    border-radius: 5px;
+}
+
+.button:hover {
+    background-color: aqua;
+    cursor: pointer;
+}

@@ -1,0 +1,68 @@
+.container{
+    background-color: rgb(185, 255, 244);
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 6px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    border: 1px solid whitesmoke;
+}
+
+.list{
+    padding-left: 1px;
+    display: flex;
+    flex-direction: column;
+    margin: 3px;
+
+}
+
+.receivers{
+    text-decoration: none;
+    display: inline;
+    border-radius: 2px;
+    cursor: pointer;
+    padding: 3px;
+}
+
+.receivers:hover{
+    box-shadow: 2px 6px 8px rgba(0, 0, 0, 0.1);
+    background-color: aqua;
+    color: rgb(128, 0, 255);
+}
+
+.container h2{
+    text-align: center;
+}
+
+.container span{
+    margin:5px;
+}
+
+.actions{
+    margin-top: 15px;
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+}
+
+.actions button{
+    border:none;
+    cursor: pointer;
+    padding: 0.5rem 1.5rem;
+    border-radius: 4px;
+}
+
+.closeBtn{
+    background-color: transparent;
+    color: rgb(175, 39, 39);
+}
+
+.updateButton{
+    background-color: aqua;
+    font-size: 15px;
+}
+
+.updateButton:hover{
+    background-color: rgb(33, 226, 226);
+    color: white;
+}

@@ -1,0 +1,11 @@
+.main{
+    display: flex;
+    justify-content: space-around;
+    gap: 10px
+}
+
+.item{
+    background-color: blue;
+    padding: 10px;
+    flex: 1;
+}
