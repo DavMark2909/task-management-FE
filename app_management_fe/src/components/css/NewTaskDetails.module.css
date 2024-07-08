@@ -21,3 +21,24 @@
     padding-bottom: 20px;
     margin-bottom: 20px;
 }
+
+.button{
+    margin-top: 20px;
+    display: flex;
+    width:100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.button button{
+    background-color: aqua;
+    border: none;
+    border-radius: 6px;
+    padding: 5px;
+}
+
+.button button:hover{
+    background-color: rgb(151, 220, 95);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}

@@ -105,6 +105,7 @@ async function loadTasks(){
     const headers = new Headers();
     headers.set("Content-Type", "text/plain");
     headers.set("Authorization", `Bearer ${token}`);
+    console.log(token);
     let url = "http://localhost:8080/api/task/my-tasks";
     const response = await fetch(url, {
         method: "GET",
