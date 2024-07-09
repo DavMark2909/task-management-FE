@@ -1,8 +1,11 @@
 import CommentListElement from "./CommentListElement";
 import classes from "./css/Comments.module.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import plusPicture from "./pictures/plusSign.png";
+import AutoResizingTextarea from "./AutoResizingTextArea";
+import { useNavigate } from "react-router-dom";
 
-function CommentSection({id}){
+function CommentSection({comments, id}){
 
   const dummy = [
     {"content": "This is the first comment just to demonstrate how it looks like. Sojme ejwhgbfvwq cqvwehgjdcvhqjwbvdschjbquhwbcdhuqbwhcudbquwbdchubqwdbcuqbwcugbqwhdbcbdcv bdchjbqdchbb1ed", "issuer": "Mark2909"},
@@ -11,42 +14,51 @@ function CommentSection({id}){
     {"content": "Это супер коммент который предназгачен к демонстрации интерфейса", "issuer": "User2"}
   ]
 
-    const [comments, setComments] = useState(dummy);
+    // const [comments, setComments] = useState(object);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [addComment, setAddComment] = useState(false);
+    const navigate = useNavigate();
 
-    // useEffect(() => {
-    //     const fetchComments = async () => {
-    //       try {
-    //         const token = localStorage.getItem('access_token');
-    //         const headers = new Headers();
-    //         headers.set("Content-Type", "application/json");
-    //         headers.set("Authorization", `Bearer ${token}`);
-    //         const url = "http://localhost:8080/api/task/comments";
-    //         const body = JSON.stringify({ taskId: id });
-    
-    //         const response = await fetch(url, {
-    //           method: "GET",
-    //           mode: "cors",
-    //           headers,
-    //           body
-    //         });
-    
-    //         if (!response.ok) {
-    //           throw new Error('Network response was not ok');
-    //         }
-    
-    //         const data = await response.json();
-    //         setComments(data);
-    //       } catch (err) {
-    //         setError(err.message);
-    //       } finally {
-    //         setLoading(false);
-    //       }
-    //     };
-    
-    //     fetchComments();
-    //   }, [id]); 
+
+    const commentRef = useRef(null);
+
+    async function handleButton(){
+        if (commentRef.current){
+            const data = commentRef.current.getValue();
+            try{
+                const token = localStorage.getItem('access_token');
+                const headers = new Headers();
+                headers.set("Content-Type", "application/json");
+                headers.set("Authorization", `Bearer ${token}`);
+                const url = `http://localhost:8080/api/task/add-comment?id=${id}`;
+                const comment = Array.isArray(data) ? data.join('') : data;
+                const body = JSON.stringify({ "comment": comment });
+
+                const res = await fetch(url, {
+                    method: "POST",
+                    mode: "cors",
+                    headers,
+                    body
+                });
+
+                if (!res.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                commentRef.current.reset();
+            } catch (err) {
+                setError(err.message);
+            } 
+        }
+    }
+
+    function cancelHandler(){
+        navigate('..');
+    }
+
+    function handleAddComment(){
+        setAddComment(true);
+    }
 
     return (
         <div className={classes.main}>
@@ -55,8 +67,8 @@ function CommentSection({id}){
                 <div className={classes.comments}>
                 {comments.length !==0 ? (
                   <ul className={classes.list}>
-                    {comments.map((cur) => (
-                        <li key={cur.content} className={classes.comment} >
+                    {comments.map((cur, index) => (
+                        <li key={index} className={classes.comment} >
                             <CommentListElement comment={cur} />
                         </li>
                     ))} 
@@ -64,14 +76,19 @@ function CommentSection({id}){
                 }
             </div>
             )}
-            <div>
-                <label>Add a comment</label>
-                <input defaultValue="Type your comment"/>
-            </div>
-            
-            <div>
+            <div className={classes.seperator}></div>
+            <div className={classes.addcomment} onClick={handleAddComment}>
                 <span>Add a new comment</span>
-                <button>Add</button>
+                <img src={plusPicture} alt="+" onClick={handleAddComment}/>
+            </div>
+            {addComment && (
+                    <div className={classes.textarea}>
+                        <AutoResizingTextarea ref={commentRef}/>
+                        <button onClick={handleButton}>Add comment</button>
+                    </div>
+            )}
+            <div>
+                <button onClick={cancelHandler}>Cancel</button>
             </div>
         </div>
     )

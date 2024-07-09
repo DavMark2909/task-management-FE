@@ -3,6 +3,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding-bottom: 5rem;
+    width: 50%;
 }
 
 .main label{
@@ -17,13 +19,14 @@
     gap: 0.5rem;
     justify-content: center;
     align-items: center;
-    max-width: 50%;
+    min-width: 100%;
 }
 
 .comments{
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 70%;
 }
 
 .comment {
@@ -32,7 +35,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-    width: 100%;
+    min-width: 100%;
 }
 
 .comment:hover{
@@ -50,4 +53,55 @@
     font-size: 14px;
     padding-bottom: 10px;
     padding-left: 10px;
+}
+
+.addcomment{
+    font-weight: bold;
+    font-size: larger;
+    font-family: 'Times New Roman', Times, serif;
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    margin-left: 6%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 2%;
+    padding-left: 2%;
+    border-radius: 5px;
+}
+
+.addcomment img{
+    max-width: 20px;
+    max-height: 20px;
+}
+
+.addcomment:hover{
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.seperator {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    margin-left: 5%;
+    width: 70%;
+}
+
+.seperator::before{
+    content: "";
+    flex-grow: 1;
+    height: 1px;
+    background: #ccc;
+    margin: 0 10px; /* Adjust margin as needed */
+}
+
+.textarea {
+    margin-left: 7%;
+    margin-top: 10px;
+    width: 80%;
+
+
 }

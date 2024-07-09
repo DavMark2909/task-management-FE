@@ -1,0 +1,17 @@
+.textarea {
+    width: 100%;
+    min-height: 1em; /* Initial height for one line */
+    resize: none; /* Disable manual resizing */
+    overflow: hidden; 
+    padding: 8px; /* Adjust padding as needed */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    border: 1px solid #ccc; /* Adjust border as needed */
+    border-radius: 4px; /* Adjust border radius as needed */
+    font-family: inherit; /* Match font with the rest of your app */
+    font-size: 1em; /* Match font size with the rest of your app */
+}
+
+.textarea:focus{
+    outline: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}

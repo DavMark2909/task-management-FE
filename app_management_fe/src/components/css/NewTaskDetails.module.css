@@ -5,16 +5,16 @@
     align-items: center;
 }
 
-.main h2{
+.content h2{
     text-align: center;
 }
 
-.main label{
+.content label{
     padding-bottom: 0px;
 }
 
 .content{
-    max-width: 50%;
+    max-width: 60%;
     margin: 20px;
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);

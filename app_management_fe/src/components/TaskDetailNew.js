@@ -28,7 +28,7 @@ function TaskDetailNew({elements, id}){
     }
 
     return (
-        <div className={classes.main}>
+        // <div className={classes.main}>
             <div className={classes.content}>
                 <p>
                     <h2>{elements.get("name")}</h2>
@@ -44,9 +44,7 @@ function TaskDetailNew({elements, id}){
                     </div>
                 )}
             </div>
-            
-            <CommentSection id={id} />
-        </div>
+        // </div>
     )
 }
 

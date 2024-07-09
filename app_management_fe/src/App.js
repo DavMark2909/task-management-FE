@@ -13,7 +13,7 @@ import UpdateTask, {loader as updateLoader} from './page/UpdateTask';
 import MessageRoot from './page/MessageRoot';
 import Messages from './page/Messages';
 import MyRequests, {loader as requestLoader} from './page/MyRequests';
-import TaskDetailPage from './page/TaskDetailPage';
+import TaskDetailPage, {loader as commentLoader} from './page/TaskDetailPage';
 
 
 const router = createBrowserRouter([
@@ -29,7 +29,7 @@ const router = createBrowserRouter([
       {path: "update", element: <UpdateTask />, action: createTask, loader: updateLoader},
       // {path: "create-request", element: <RequestPage />},
       {path: "requests", element: <MyRequests />, loader: requestLoader},
-      {path: "task-detail", element: <TaskDetailPage />}
+      {path: "task-detail", element: <TaskDetailPage />, loader: commentLoader}
     ]},
     {path: "messages", element: <MessageRoot />, children: [
       {index: true, element: <Messages />}
