@@ -7,12 +7,12 @@ import { useNavigate } from "react-router-dom";
 
 function CommentSection({comments, id}){
 
-  const dummy = [
-    {"content": "This is the first comment just to demonstrate how it looks like. Sojme ejwhgbfvwq cqvwehgjdcvhqjwbvdschjbquhwbcdhuqbwhcudbquwbdchubqwdbcuqbwcugbqwhdbcbdcv bdchjbqdchbb1ed", "issuer": "Mark2909"},
-    {"content": "Это супер коммент который предназгачен к демонстрации интерфейса", "issuer": "User2"},
-    {"content": "Это супер коммент который предназгачен к демонстрации интерфейса", "issuer": "User2"},
-    {"content": "Это супер коммент который предназгачен к демонстрации интерфейса", "issuer": "User2"}
-  ]
+//   const dummy = [
+//     {"content": "This is the first comment just to demonstrate how it looks like. Sojme ejwhgbfvwq cqvwehgjdcvhqjwbvdschjbquhwbcdhuqbwhcudbquwbdchubqwdbcuqbwcugbqwhdbcbdcv bdchjbqdchbb1ed", "issuer": "Mark2909"},
+//     {"content": "Это супер коммент который предназгачен к демонстрации интерфейса", "issuer": "User2"},
+//     {"content": "Это супер коммент который предназгачен к демонстрации интерфейса", "issuer": "User2"},
+//     {"content": "Это супер коммент который предназгачен к демонстрации интерфейса", "issuer": "User2"}
+//   ]
 
     // const [comments, setComments] = useState(object);
     const [loading, setLoading] = useState(false);
@@ -87,8 +87,8 @@ function CommentSection({comments, id}){
                         <button onClick={handleButton}>Add comment</button>
                     </div>
             )}
-            <div>
-                <button onClick={cancelHandler}>Cancel</button>
+            <div className={classes.backBtn}>
+                <button onClick={cancelHandler} >Back</button>
             </div>
         </div>
     )

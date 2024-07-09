@@ -46,7 +46,6 @@ async function commentLoader(id){
     });
 
     const dataAfter = await response.json();
-    console.log(dataAfter);
     return dataAfter;
 }
 
