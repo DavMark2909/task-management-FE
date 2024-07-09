@@ -30,13 +30,13 @@ function TaskDetailNew({elements, id}){
     return (
         // <div className={classes.main}>
             <div className={classes.content}>
-                <p>
+                <div>
                     <h2>{elements.get("name")}</h2>
-                </p>
-                <p>
+                </div>
+                <div>
                     <span>Description</span>
                     <h3>{elements.get("description")}</h3>
-                </p>
+                </div>
                 <span>{`Task was issued by ${elements.get("issuer")}`}</span>
                 {status && (
                     <div className={classes.button}>

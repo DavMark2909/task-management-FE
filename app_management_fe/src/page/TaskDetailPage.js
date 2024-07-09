@@ -6,6 +6,7 @@ import classes from "./css/TaskPage.module.css";
 import CommentSection from "../components/CommentSection";
 
 
+
 function TaskDetailPage(){
 
     const query = new URLSearchParams(useLocation().search);
@@ -30,15 +31,13 @@ function TaskDetailPage(){
 export default TaskDetailPage;
 
 
-async function commentLoader({params}){
-
-    // const url1 = new URL(request.url);
-    // const id = url1.searchParams.get("id");
+async function commentLoader(id){
+    
     const token = localStorage.getItem('access_token');
     const headers = new Headers();
     headers.set("Content-Type", "application/json");
     headers.set("Authorization", `Bearer ${token}`);
-    const url = "http://localhost:8080/api/task/comments?id=1";
+    const url = `http://localhost:8080/api/task/comments?id=${id}`;
 
     const response = await fetch(url, {
         method: "GET",
@@ -52,7 +51,9 @@ async function commentLoader({params}){
 }
 
 export function loader({request, params}){
+    const url1 = new URL(request.url);
+    const id  = url1.searchParams.get("id");
     return defer({
-        comments: commentLoader(params)
+        comments: commentLoader(id)
     });
 }

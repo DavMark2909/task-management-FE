@@ -1,6 +1,6 @@
 import CommentListElement from "./CommentListElement";
 import classes from "./css/Comments.module.css";
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import plusPicture from "./pictures/plusSign.png";
 import AutoResizingTextarea from "./AutoResizingTextArea";
 import { useNavigate } from "react-router-dom";
