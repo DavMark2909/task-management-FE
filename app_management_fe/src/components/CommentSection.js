@@ -87,6 +87,7 @@ function CommentSection({comments, id}){
                         <button onClick={handleButton}>Add comment</button>
                     </div>
             )}
+            {error && (<div>Error occured</div>)}
             <div className={classes.backBtn}>
                 <button onClick={cancelHandler} >Back</button>
             </div>
