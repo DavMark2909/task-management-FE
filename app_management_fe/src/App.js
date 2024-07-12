@@ -31,9 +31,7 @@ const router = createBrowserRouter([
       {path: "requests", element: <MyRequests />, loader: requestLoader},
       {path: "task-detail", element: <TaskDetailPage />, loader: commentLoader}
     ]},
-    {path: "messages", element: <MessageRoot />, children: [
-      {index: true, element: <Messages />}
-    ]}
+    {path: "messages", element: <Messages />}
   ]}
   ,
 

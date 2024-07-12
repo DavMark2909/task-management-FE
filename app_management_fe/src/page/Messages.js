@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import MessageComponent from "../components/MessageComponent";
-import { useOutletContext } from "react-router-dom";
 import classes from "./css/Messages.module.css";
 
 function Messages(){
@@ -11,11 +10,7 @@ function Messages(){
         {"name": "User 3"},
         {"name": "User 4"},
     ];
-
     
-
-    const {msgType} = useOutletContext();
-    console.log(msgType);
     const [chats, setChats] = useState(dummy);
 
     // useEffect(() => {
