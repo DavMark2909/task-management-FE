@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 import MessageComponent from "../components/MessageComponent";
 import { useOutletContext } from "react-router-dom";
+import classes from "./css/Messages.module.css";
 
 function Messages(){
 
     const dummy = [
-        {"username": "User 1"},
-        {"username": "User 2"},
-        {"username": "User 3"},
-        {"username": "User 4"},
+        {"name": "User 1"},
+        {"name": "User 2"},
+        {"name": "User 3"},
+        {"name": "User 4"},
     ];
 
     
@@ -38,7 +39,11 @@ function Messages(){
     // }, [msgType]);
 
 
-    return <MessageComponent content={chats}/>
+    return (
+        <div className={classes.main}>
+            <MessageComponent content={chats}/>
+        </div>
+        );
 }
 
 export default Messages;

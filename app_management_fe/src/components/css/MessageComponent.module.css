@@ -1,0 +1,188 @@
+.main2 {
+    display: flex;
+    justify-content: space-between;
+    gap:2%;
+    padding-left: 5px;
+    padding-right: 7px;
+}
+
+.chats{
+    display: flex;
+    justify-content: center;
+    width: 30%;
+    border-radius: 5px;
+    margin-top: 5px;
+    margin-left: 10px;
+}
+
+.chatscontent{
+    border-radius: 5px;
+    border: 1px solid gray;
+    width: 95%;
+    box-shadow: 2px 6px 8px rgba(0, 0, 0, 0.1);
+    height: 65vh;
+}
+
+.list{
+    margin: 5px;
+    height: 75%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    list-style-type: none;
+    padding-left: 0px;
+    overflow-x: auto;
+}
+
+.chat{
+    display: flex;
+    gap: 50px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    width: 100%;
+    height: 15%;
+}
+
+.chat:hover{
+    background-color: aliceblue;
+}
+
+.profileContainer{
+    display: flex;
+    align-items: center;
+}
+
+.profileContainer span{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: larger;
+}
+
+.profile{
+    width: 30px;
+    height: 50%;
+    padding-left: 10px;
+    margin-right: 10px;
+}
+
+.select{
+    width:65%;
+    border-radius: 5px;
+    margin-top: 10px;
+    height: 65vh;
+    border: 1px solid gray;
+    box-shadow: 2px 6px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: aliceblue;
+}
+
+.select span{
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.messages{
+    width:65%;
+    border-radius: 5px;
+    margin-top: 10px;
+    height: 65vh;
+    border: 1px solid gray;
+    box-shadow: 2px 6px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+
+/* ----------------------------- */
+.utils{
+    margin-top: 5px;
+    margin-left: 2%;
+    margin-right: 2%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 96%;
+    border-bottom: 1px solid gray;
+    box-shadow: 2px 6px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    max-height: fit-content;
+}
+
+.picture{
+    margin-top: 15px;
+    width: 20px;
+    height: 22px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border: 1px solid black;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.picture:hover{
+    background-color: gray;
+}
+
+.searcher{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.searcher input{
+    margin-top: 15px;
+    height: 20px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border: 1px solid grey;
+    width: 60%;
+}
+
+.searcher input:focus{
+    outline: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.options{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.list2 {
+    margin-left: 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    list-style-type: none;
+}
+button{
+    border-radius: 5px;
+}
+
+.btn{
+    background-color: transparent;
+    border: none;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn:hover{
+    cursor: pointer;
+}
+
+.active{
+    background-color:antiquewhite;
+    border: none;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-bottom: 2px solid aqua;
+}
+
+.active:hover{
+    cursor: pointer;
+}

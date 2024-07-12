@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { defer, Outlet } from "react-router-dom";
 import MessageRootComponent from "../components/MessageRootComponent";
+import classes from "./css/Messages.module.css";
 
 function MessageRoot(){
 
@@ -15,10 +16,10 @@ function MessageRoot(){
     }
 
     return (
-        <>
-        <MessageRootComponent optionMethod={filterOption} searchMethod={lookFor}/>
-        <Outlet context={{msgType}}/>
-        </>
+        <div className={classes.main}>
+        {/* <MessageRootComponent optionMethod={filterOption} searchMethod={lookFor}/> */}
+            <Outlet context={{msgType}}/>
+        </div>
     );
 }
 

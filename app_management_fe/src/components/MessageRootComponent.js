@@ -16,7 +16,7 @@ function MessageRootComponent({searchMethod, optionMethod}){
         // <div >
             <header className={classes.main}>
                 <div className={classes.searcher}>
-                    <input defaultValue="Search for..." ref={searchRef}/>
+                    <input ref={searchRef} placeholder="Search for"/>
                     <img src={searchPicture} alt="Go" onClick={searchMethod} className={classes.picture}/>
                 </div>
                 <div className={classes.options}>
