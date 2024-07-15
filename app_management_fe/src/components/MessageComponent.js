@@ -3,6 +3,7 @@ import classes from "./css/MessageComponent.module.css";
 import { useState, useRef, useEffect } from "react";
 import searchPicture from "./pictures/search.png";
 import { connect, sendMessage } from "../utils/WebSocketService";
+import DialogComponent from "./DialogComponent";
 
 function MessageComponent({content}){
 
@@ -12,6 +13,7 @@ function MessageComponent({content}){
     const [msgType, setMsgType] = useState("All");
     const [updatedChatRooms, setUpdatedChatRooms] = useState(new Set());
     const [activeChat, setActiveChat] = useState(null);
+    const username = localStorage.getItem("username");
 
     useEffect(() => {
         connect(localStorage.getItem("username", onMessageReceived));
@@ -33,16 +35,35 @@ function MessageComponent({content}){
     }
 
     function handleButtonClick(value){
-        // have to optimize to prevent double rendering
         setActiveBtn(value);
         setMsgType(value);
     }
 
-    // i am not sure if this one is still needed
-    async function loadChat(chat){
-        // const chatId = chat.id;
+    function clickChat(chat){
+        setActiveChat(chat.name);
     }
 
+    async function fetchChatData() {
+        const sender = user;
+        const receiver = activeChat.name.split("_").filter(part => part !== username);
+        const token = localStorage.getItem('access_token');
+        const headers = new Headers();
+        headers.set("Content-Type", "application/json");
+        headers.set("Authorization", `Bearer ${token}`);
+        const url = `http://localhost:7777/api/messages/${sender}/${receiver}`;
+        const res = await fetch(url, {
+            method: "GET",
+               headers
+        });
+        const myChatData = await res.json();
+        setPayload(myChatData);
+    }
+
+    useEffect(() => {
+        fetchChatData()
+    }, [activeChat]);
+
+// this method is designed to handle the sorting options of the options pane
         // useEffect(() => {
     //     const fetchData = async () => {
     //         const token = localStorage.getItem('access_token');
@@ -89,8 +110,8 @@ function MessageComponent({content}){
                     {content ? (
                         <ul className={classes.list}>
                             {content.map((cur, index) => (
-                                <li key={index} className={classes.chat} onClick={() => loadChat(cur)}>
-                                    <ChatComponent name={cur.name} content={cur} updated={updatedChatIds.has(cur.name)} sumbit={handleSubmit}/>
+                                <li key={index} className={classes.chat} onClick={() => clickChat(cur.name)}>
+                                    <ChatComponent content={cur} updated={updatedChatRooms.has(cur.name)} username={username} active={cur.name === activeChat}/>
                                 </li>
                             ))}
                         </ul>
@@ -100,7 +121,13 @@ function MessageComponent({content}){
                 </div>
             </div>
             <div className={payload ? classes.messages : classes.select}> 
-                <span>Select the desired chat</span>
+                {payload ? (
+                    <div>
+                        <DialogComponent messages={payload} username={username} onAdd={addMessage}/>
+                    </div>
+                ) 
+                : <span>Select the desired chat</span>
+                }
             </div>
         </div>
     )
