@@ -1,7 +1,8 @@
 import ChatComponent from "./ChatComponent";
 import classes from "./css/MessageComponent.module.css";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import searchPicture from "./pictures/search.png";
+import { connect, sendMessage } from "../utils/WebSocketService";
 
 function MessageComponent({content}){
 
@@ -9,6 +10,22 @@ function MessageComponent({content}){
     const [activeBtn, setActiveBtn] = useState("All");
     const searchRef = useRef();
     const [msgType, setMsgType] = useState("All");
+    const [updatedChatRooms, setUpdatedChatRooms] = useState(new Set());
+    const [activeChat, setActiveChat] = useState(null);
+
+    useEffect(() => {
+        connect(localStorage.getItem("username", onMessageReceived));
+    }, []);
+
+    function onMessageReceived(message){
+        const receivedMessage = JSON.parse(message);
+        const chatName = receivedMessage.chatName;
+        if (activeChat && activeChat === chatName){
+            addMessageToChat(message);
+        } else {
+            setUpdatedChatRooms(prevNames => new Set(prevNames).add(chatName));
+        }
+    }
 
     function lookFor(){
         const name = searchRef.current.value;
@@ -73,7 +90,7 @@ function MessageComponent({content}){
                         <ul className={classes.list}>
                             {content.map((cur, index) => (
                                 <li key={index} className={classes.chat} onClick={() => loadChat(cur)}>
-                                    <ChatComponent name={cur.name} />
+                                    <ChatComponent name={cur.name} content={cur} updated={updatedChatIds.has(cur.name)} sumbit={handleSubmit}/>
                                 </li>
                             ))}
                         </ul>
