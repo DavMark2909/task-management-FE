@@ -84,6 +84,10 @@ function MessageComponent({content}){
     //     fetchData();
     // }, [msgType]);
 
+    function addMessage(message){
+        sendMessage()
+    }
+
     return (
         <div className={classes.main2}>
             <div className={classes.chats}>

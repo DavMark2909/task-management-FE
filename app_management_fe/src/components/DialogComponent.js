@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import classes from "./css/Dialog.module.css";
 
-function DialogComponent({messages, username}){
+function DialogComponent({messages, username, onAdd}){
 
     const inputRef = useRef();
 
@@ -9,6 +9,14 @@ function DialogComponent({messages, username}){
         ...message,
         side: message.sender === username
     }));   
+
+    function addMessage(){
+        const message = inputRef.current.value;
+        if (message.trim()){
+            onAdd(message)
+            inputRef.current.value = "";  
+        }
+    }
 
     return (
         <div>
@@ -19,7 +27,7 @@ function DialogComponent({messages, username}){
             </div>
             <div className={classes.messagepane}>
                 <input placeholder="Type message" ref={inputRef}/>
-                <button>Add</button>
+                <button onClick={addMessage}>Add</button>
             </div>
         </div>
     );
