@@ -1,7 +1,7 @@
 import classes from "./css/MessageComponent.module.css";
 import profilePicture from "./pictures/defaultProfile.png";
 
-function ChatComponent({content, updated, username, active}){
+function ChatComponent({content, updated, username}){
 
     let name;
 
@@ -13,7 +13,7 @@ function ChatComponent({content, updated, username, active}){
     }
 
     return (
-        <div className={active ? classes.activeContainer : updated ? classes.updatedConainer : classes.profileContainer}>
+        <div className={updated ? classes.updatedConainer : classes.profileContainer}>
            <img src={profilePicture} alt="" className={classes.profile}/>
             <span>{name}</span>
             <span>{content.time}</span>

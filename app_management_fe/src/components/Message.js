@@ -1,13 +1,12 @@
 import classes from "./css/Dialog.module.css";
 
-function Message({content}){
+function Message({text, type}){
 
     return (
-        <div className={content.side ? classes.mymessage : classes.sidemessage}>
-            <span>{content.content}</span>
+        <div className={type ? classes.rightMessage : classes.leftMessage}>
+            <span>{text}</span>
         </div>
-    );
-
+    )
 }
 
 export default Message;

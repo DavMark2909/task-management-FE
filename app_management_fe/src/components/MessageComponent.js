@@ -142,8 +142,8 @@ function MessageComponent(){
                         chats ? (
                             <ul className={classes.list}>
                                 {chats.map((cur, index) => (
-                                    <li key={index} className={classes.chat} onClick={() => clickChat(cur.chatName)}>
-                                        <ChatComponent content={cur} updated={updatedChatRooms.has(cur.name)} username={username} active={cur.name === activeChat}/>
+                                    <li key={index} className={cur.chatName === activeChat ? classes.activeChat : classes.chat} onClick={() => clickChat(cur.chatName)}>
+                                        <ChatComponent content={cur} updated={updatedChatRooms.has(cur.name)} username={username}/>
                                     </li>
                                 ))}
                             </ul>
@@ -166,9 +166,7 @@ function MessageComponent(){
             </div>
             <div className={payload ? classes.messages : classes.select}> 
                 {payload ? (
-                    <div>
-                        <DialogComponent messages={payload} username={username} onAdd={addMessage}/>
-                    </div>
+                    <DialogComponent messages={payload} username={username} onAdd={addMessage}/>
                 ) 
                 : <span>Select the desired chat</span>
                 }

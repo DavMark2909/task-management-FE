@@ -1,0 +1,81 @@
+.main{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.dialog{
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.mymessage{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.sidemessage{
+    display: flex;
+    justify-content: flex-start;
+}
+
+.rightMessage{
+    margin-bottom: 5px;
+    padding: 5px;
+    max-width: 45%;
+    border-radius: 5px;
+    background-color: aqua;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.leftMessage{
+    margin-bottom: 5px;
+    padding: 5px;
+    max-width: 45%;
+    border-radius: 5px;
+    background-color: rgb(184, 108, 209);
+    font-family: 'Times New Roman', Times, serif;
+    color: rgb(235, 229, 250);
+}
+
+
+
+.messagepane {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    box-sizing: border-box;
+    height: 10%;
+    border-top: 1px solid #000000;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background: #b46bef;
+}
+
+.messagepane input{
+    width: 75%;
+    margin-left: 5%;
+    border-radius: 5px;
+    border:none;
+}
+
+.messagepane input:focus{
+    outline: none;
+    border: 1px solid rgb(76, 205, 234);
+} 
+
+.messagepane button{
+    margin-right: 3%;
+    width: 10%;
+    border: none;
+    background-color: aqua;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: medium;
+}
+
+.messagepane button:hover{
+    background-color: rgb(95, 236, 172);
+    color: rgb(235, 229, 250);
+}
