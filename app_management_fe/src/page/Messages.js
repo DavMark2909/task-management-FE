@@ -36,7 +36,7 @@ function Messages(){
 
     return (
         <div className={classes.main}>
-            <MessageComponent content={chats}/>
+            <MessageComponent />
         </div>
         );
 }

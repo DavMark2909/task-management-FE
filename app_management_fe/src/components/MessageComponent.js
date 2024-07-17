@@ -5,7 +5,7 @@ import searchPicture from "./pictures/search.png";
 import { connect, sendMessage } from "../utils/WebSocketService";
 import DialogComponent from "./DialogComponent";
 
-function MessageComponent({content}){
+function MessageComponent(){
 
     const [payload, setPayload] = useState(null);
     const [activeBtn, setActiveBtn] = useState("All");
@@ -13,17 +13,41 @@ function MessageComponent({content}){
     const [msgType, setMsgType] = useState("All");
     const [updatedChatRooms, setUpdatedChatRooms] = useState(new Set());
     const [activeChat, setActiveChat] = useState(null);
+    const [loadingChats, setLoadingChats] = useState(true);
+    const [chats, setChats] = useState(null);
+    
     const username = localStorage.getItem("username");
+    
 
     useEffect(() => {
         connect(localStorage.getItem("username", onMessageReceived));
+    }, []);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const url = `http://localhost:7777/chats?username=${username}`;
+            console.log(url);
+            const headers = new Headers();
+            headers.set("Content-Type", "application/json");
+            const res = await fetch(url, {
+                method: "GET",
+                headers
+            });
+            if (!res.ok){
+                console.log("PIZDA EBANNAYA BLYAT VSEH EBAL SYKA");
+            }
+            const data = await res.json();
+            setChats(data);
+            setLoadingChats(false);
+        };
+        fetchData();
     }, []);
 
     function onMessageReceived(message){
         const receivedMessage = JSON.parse(message);
         const chatName = receivedMessage.chatName;
         if (activeChat && activeChat === chatName){
-            addMessageToChat(message);
+            // addMessageToChat(message);
         } else {
             setUpdatedChatRooms(prevNames => new Set(prevNames).add(chatName));
         }
@@ -40,23 +64,26 @@ function MessageComponent({content}){
     }
 
     function clickChat(chat){
-        setActiveChat(chat.name);
+        console.log("click blyat", chat);
+        setActiveChat(chat);
     }
 
     async function fetchChatData() {
-        const sender = user;
-        const receiver = activeChat.name.split("_").filter(part => part !== username);
-        const token = localStorage.getItem('access_token');
-        const headers = new Headers();
-        headers.set("Content-Type", "application/json");
-        headers.set("Authorization", `Bearer ${token}`);
-        const url = `http://localhost:7777/api/messages/${sender}/${receiver}`;
-        const res = await fetch(url, {
-            method: "GET",
-               headers
-        });
-        const myChatData = await res.json();
-        setPayload(myChatData);
+        if (activeChat){
+            const receiver = activeChat.split("_").filter(part => part !== username);
+            // const token = localStorage.getItem('access_token');
+            const headers = new Headers();
+            headers.set("Content-Type", "application/json");
+            // headers.set("Authorization", `Bearer ${token}`);
+            const url = `http://localhost:7777/chats/${username}/${receiver}`;
+            const res = await fetch(url, {
+                method: "GET",
+                headers
+            });
+            const myChatData = await res.json();
+            console.log(myChatData);
+            setPayload(myChatData);
+        }
     }
 
     useEffect(() => {
@@ -111,7 +138,20 @@ function MessageComponent({content}){
                             </ul>
                         </div>
                     </div>
-                    {content ? (
+                    {loadingChats ? <span>Loading chats...</span> : (
+                        chats ? (
+                            <ul className={classes.list}>
+                                {chats.map((cur, index) => (
+                                    <li key={index} className={classes.chat} onClick={() => clickChat(cur.chatName)}>
+                                        <ChatComponent content={cur} updated={updatedChatRooms.has(cur.name)} username={username} active={cur.name === activeChat}/>
+                                    </li>
+                                ))}
+                            </ul>
+                        ) : 
+                            (<span>No chats yet</span>)
+                    )
+                    }
+                    {/* {content ? (
                         <ul className={classes.list}>
                             {content.map((cur, index) => (
                                 <li key={index} className={classes.chat} onClick={() => clickChat(cur.name)}>
@@ -121,7 +161,7 @@ function MessageComponent({content}){
                         </ul>
                         ) : 
                         (<span>No chats yet</span>)
-                    }
+                    } */}
                 </div>
             </div>
             <div className={payload ? classes.messages : classes.select}> 

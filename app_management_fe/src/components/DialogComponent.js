@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import classes from "./css/Dialog.module.css";
+import Message from "./Message";
 
 function DialogComponent({messages, username, onAdd}){
 

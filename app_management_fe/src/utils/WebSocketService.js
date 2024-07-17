@@ -1,22 +1,23 @@
 // WebSocketService.js
-import { Client } from '@stomp/stompjs';
+import { Client, Stomp } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 
 let stompClient = null;
 
+function onConnected(username, method){
+    stompClient.subscribe(`/user/${username}/queue/messages`, method);
+    console.log("after subscribing epta")
+}
+
+function onError() {
+    console.log("pizda ebannaya with messaging");
+}
+
 export const connect = (username, onMessageReceived) => {
-    const socket = new SockJS('/ws');
-    stompClient = new Client({
-        webSocketFactory: () => socket,
-        onConnect: () => {
-            console.log('Connected to WebSocket');
-            stompClient.subscribe(`/user/${username}/queue/messages`, onMessageReceived);
-        },
-        onStompError: (error) => {
-            console.error('WebSocket error: ', error);
-        },
-    });
-    stompClient.activate();
+    const socket = new SockJS('http://localhost:7777/ws');
+    stompClient = Stomp.over(socket);
+
+    stompClient.connect({}, () => onConnected(username, onMessageReceived), onError);
 };
 
 export const sendMessage = (payload) => {
