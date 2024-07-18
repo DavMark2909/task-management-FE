@@ -13,7 +13,7 @@ function DialogComponent({messages, username, onAdd}){
 
     function addMessage(){
         const message = inputRef.current.value;
-        if (message.trim()){
+        if (message.trim() !== ""){
             onAdd(message)
             inputRef.current.value = "";  
         }

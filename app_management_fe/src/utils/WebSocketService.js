@@ -20,11 +20,14 @@ export const connect = (username, onMessageReceived) => {
     stompClient.connect({}, () => onConnected(username, onMessageReceived), onError);
 };
 
-export const sendMessage = (payload) => {
+export const sendMessage = (message, username, recepient, type) => {
     if (stompClient && stompClient.connected) {
-        stompClient.publish({
-            destination: "/app/chat",
-            body: JSON.stringify(payload),
-        });
+        const messagePayload = {
+            content:  message,
+            sender: username,
+            receiver: recepient,
+            requestBased: type
+        }
+        stompClient.send("/app/chat", {}, JSON.stringify(messagePayload));
     }
 };
