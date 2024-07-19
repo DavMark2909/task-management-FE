@@ -65,7 +65,47 @@
 .profileContainer{
     display: flex;
     align-items: center;
+    width: 95%;
+    position: relative;
 }
+
+.circle {
+    width: 10px; /* Adjust the size as needed */
+    height: 10px; /* Adjust the size as needed */
+    background-color: #ffffff; /* Change color if needed */
+    border-radius: 50%;
+    position: absolute;
+    right: 0;
+    top: 50%; /* Adjust as needed to position vertically */
+    transform: translateY(-50%); /* Centers the circle vertically */
+}
+
+.chatName{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+}
+
+.divName{
+    display: flex;
+    align-items: flex-start;
+    padding: 0px;
+}
+
+.divName h3{
+    padding: 0px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.divSpan{
+    margin-top: 15px;
+    display: flex;
+    justify-content: flex-end;
+    font-size: small;
+    font-family: 'Times New Roman', Times, serif;
+}
+
 
 .activeContainer{
     color: white;

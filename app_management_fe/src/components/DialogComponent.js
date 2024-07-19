@@ -27,7 +27,7 @@ const DialogComponent = forwardRef(({messages, username, onAdd}, ref) => {
     function addUserMessage(){
         const message = inputRef.current.value;
         onAdd(message);
-        updateMessage(message, true);
+        // updateMessage(message, true);
         inputRef.current.value = "";
     }
 
@@ -41,7 +41,6 @@ const DialogComponent = forwardRef(({messages, username, onAdd}, ref) => {
             ...message,
             side: message.sender === username
         }));   
-    
         setStateMsg(parsed);
     }
 

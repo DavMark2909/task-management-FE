@@ -12,8 +12,9 @@ function MessageComponent(){
     const searchRef = useRef();
     const dialogRef = useRef();
     const chatRef = useRef("");
+    const [updatedChatRooms, setUpdatedChatRooms] = useState([""]);
+    const updatedChatRef = useRef(updatedChatRooms);
     const [msgType, setMsgType] = useState("All");
-    const [updatedChatRooms, setUpdatedChatRooms] = useState(new Set());
     const [activeChat, setActiveChat] = useState();
     const [loadingChats, setLoadingChats] = useState(true);
     const [chats, setChats] = useState(null);
@@ -51,10 +52,13 @@ function MessageComponent(){
         const content = parsed.content;
         console.log(content);
         if (chatRef.current === chatName){
-            console.log(chatName);
             dialogRef.current.updateMessage(content);
         } else {
-            setUpdatedChatRooms(prevNames => new Set(prevNames).add(chatName));
+            setUpdatedChatRooms(prevNames => {
+                const newChatRooms = [...prevNames, chatName];
+                updatedChatRef.current = newChatRooms; // Update ref
+                return newChatRooms;
+            });
         }
     }
 
@@ -71,6 +75,11 @@ function MessageComponent(){
     function clickChat(chat){
         console.log("After click the name is ", chat);
         chatRef.current = chat;
+        setUpdatedChatRooms(prevNames => {
+            const newChatRooms = prevNames.filter(name => name !== chat);
+            updatedChatRef.current = newChatRooms; // Update the ref
+            return newChatRooms;
+        });
         setActiveChat(chat);
     }
 
@@ -85,7 +94,6 @@ function MessageComponent(){
                 headers
             });
             const myChatData = await res.json();
-            console.log(myChatData);
             if (payload){
                 dialogRef.current.updateChat(myChatData);
             } else{
@@ -153,7 +161,7 @@ function MessageComponent(){
                             <ul className={classes.list}>
                                 {chats.map((cur, index) => (
                                     <li key={index} className={cur.chatName === activeChat ? classes.activeChat : classes.chat} onClick={() => clickChat(cur.chatName)}>
-                                        <ChatComponent content={cur} updated={updatedChatRooms.has(cur.name)} username={username}/>
+                                        <ChatComponent content={cur} updated={updatedChatRef.current.includes(cur.chatName)} username={username} active={cur.chatName === activeChat}/>
                                     </li>
                                 ))}
                             </ul>
