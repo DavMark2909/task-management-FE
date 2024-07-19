@@ -1,8 +1,8 @@
-import { useRef, useState } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
 import classes from "./css/Dialog.module.css";
 import Message from "./Message";
 
-function DialogComponent({messages, username, onAdd}){
+const DialogComponent = forwardRef(({messages, username, onAdd}, ref) => {
 
     const inputRef = useRef();
     const listRef = useRef();
@@ -20,21 +20,39 @@ function DialogComponent({messages, username, onAdd}){
         }
     }  
 
+    useEffect(() => {
+        scrollToButton();
+    }, [stateMsg]);
+
     function addUserMessage(){
         const message = inputRef.current.value;
-        addMessage(message, true);
+        onAdd(message);
+        updateMessage(message, true);
         inputRef.current.value = "";
     }
 
-    function addMessage(message, type = false){
+    useImperativeHandle(ref, () => ({
+        updateMessage,
+        updateChat
+    }));
+
+    function updateChat(messages){
+        const parsed = messages.map(message => ({
+            ...message,
+            side: message.sender === username
+        }));   
+    
+        setStateMsg(parsed);
+    }
+
+    function updateMessage(message, type = false){
+        console.log("in the update");
         if (message.trim() !== ""){
-            onAdd(message);
             const newMsg = {
                 content: message,
                 side: type
             };
-            setStateMsg([...setStateMsg, newMsg]);
-            scrollToButton();  
+            setStateMsg(prevState => [...prevState, newMsg]);
         }
     }
 
@@ -53,6 +71,6 @@ function DialogComponent({messages, username, onAdd}){
             </div>
         </div> 
     );
-}
+});
 
 export default DialogComponent;

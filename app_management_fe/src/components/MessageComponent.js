@@ -10,9 +10,11 @@ function MessageComponent(){
     const [payload, setPayload] = useState(null);
     const [activeBtn, setActiveBtn] = useState("All");
     const searchRef = useRef();
+    const dialogRef = useRef();
+    const chatRef = useRef("");
     const [msgType, setMsgType] = useState("All");
     const [updatedChatRooms, setUpdatedChatRooms] = useState(new Set());
-    const [activeChat, setActiveChat] = useState(null);
+    const [activeChat, setActiveChat] = useState();
     const [loadingChats, setLoadingChats] = useState(true);
     const [chats, setChats] = useState(null);
     
@@ -46,9 +48,11 @@ function MessageComponent(){
     function onMessageReceived(message){
         const parsed = JSON.parse(message.body);
         const chatName = parsed.chatName;
-        console.log(chatName);
-        if (activeChat && activeChat === chatName){
-            console.log("true brother");
+        const content = parsed.content;
+        console.log(content);
+        if (chatRef.current === chatName){
+            console.log(chatName);
+            dialogRef.current.updateMessage(content);
         } else {
             setUpdatedChatRooms(prevNames => new Set(prevNames).add(chatName));
         }
@@ -65,6 +69,8 @@ function MessageComponent(){
     }
 
     function clickChat(chat){
+        console.log("After click the name is ", chat);
+        chatRef.current = chat;
         setActiveChat(chat);
     }
 
@@ -79,7 +85,12 @@ function MessageComponent(){
                 headers
             });
             const myChatData = await res.json();
-            setPayload(myChatData);
+            console.log(myChatData);
+            if (payload){
+                dialogRef.current.updateChat(myChatData);
+            } else{
+                setPayload(myChatData);
+            }
         }
     }
 
@@ -154,7 +165,7 @@ function MessageComponent(){
             </div>
             <div className={payload ? classes.messages : classes.select}> 
                 {payload ? (
-                    <DialogComponent messages={payload} username={username} onAdd={addMessage}/>
+                    <DialogComponent ref={dialogRef} messages={payload} username={username} onAdd={addMessage}/>
                 ) 
                 : <span>Select the desired chat</span>
                 }
