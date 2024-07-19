@@ -11,6 +11,10 @@
     box-sizing: border-box;
 }
 
+.dialog::-webkit-scrollbar{
+    display: none;
+}
+
 .mymessage{
     display: flex;
     justify-content: flex-end;
