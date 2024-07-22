@@ -1,16 +1,24 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getRequest } from "../utils/RequestHandler";
 import classes from "./css/ItemComponent.module.css";
+import searchPicture from "./pictures/search.png";
+import { useNavigate } from "react-router-dom";
 
 function ItemComponent({addOption}){
 
     const token = localStorage.getItem("token");
-    const [categoryLoading, setCategoryLoading] = useState(true);
+    const navigate = useNavigate()
+
+    const [categoryLoading, setCategoryLoading] = useState(false);
     const [categories, setCategories] = useState();
     const [error, setError] = useState();
     const [selectedCategory, setSelectedCategory] = useState();
     const [items, setItems] = useState();
     const [itemLoading, setItemLoading] = useState(false);
+    const [lookingForItem, setLookingForItem] = useState();
+    const [loadingLooking, setLoadingLooking] = useState(false);
+
+    const searchRef = useRef();
 
 
     useEffect(() => {
@@ -28,6 +36,7 @@ function ItemComponent({addOption}){
         fetchCategories();
     },[]);
 
+
     useEffect(() => {
         const fetchCategory = async() => {
             const url = `http://?category=${selectedCategory}`;
@@ -43,8 +52,26 @@ function ItemComponent({addOption}){
         fetchCategory();
     }, [selectedCategory]);
 
+
+    useEffect(() => {
+        const fetchLookingForItem = async () => {
+            const url = `http://?item=${lookingForItem}`;
+            try{
+                loadingLooking(true);
+                const item = await getRequest(url, token);
+                navigate(item.name);
+            } catch (error){
+                setError(`There is no such item with the name ${lookingForItem}`);
+            }
+        };
+    }, [lookingForItem]);
+
     function handleCategory(name){
         setSelectedCategory(name);
+    }
+
+    function lookFor(){
+
     }
 
     return (
@@ -65,8 +92,19 @@ function ItemComponent({addOption}){
                     )}
                 </div>
             </div>
-            <div className={classes.itemPane}>
+            <div className={items ? classes.itemPane : classes.suggest}>
+                {items ? (
+                    <>
+                        <div className={classes.itemsname}>{selectedCategory}</div>
+                        <div className={classes.itemSearcher}>
+                            <input placeholder="Search for" ref={searchRef}/>
+                            <img src={searchPicture} alt="Go" className={classes.searchBtn} onClick={lookFor} />
+                        </div>
+                        <div className={classes.itemGrid}>
 
+                        </div>
+                    </>
+                ) : <span>Select the desired category</span>}
             </div>
 
         </div>
