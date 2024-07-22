@@ -29,7 +29,6 @@ function MessageComponent(){
     useEffect(() => {
         const fetchData = async () => {
             const url = `http://localhost:7777/chats?username=${username}`;
-            console.log(url);
             const headers = new Headers();
             headers.set("Content-Type", "application/json");
             const res = await fetch(url, {

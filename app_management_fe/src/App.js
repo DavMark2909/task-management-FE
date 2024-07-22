@@ -14,6 +14,7 @@ import MessageRoot from './page/MessageRoot';
 import Messages from './page/Messages';
 import MyRequests, {loader as requestLoader} from './page/MyRequests';
 import TaskDetailPage, {loader as commentLoader} from './page/TaskDetailPage';
+import Items from "./page/Items";
 
 
 const router = createBrowserRouter([
@@ -31,7 +32,8 @@ const router = createBrowserRouter([
       {path: "requests", element: <MyRequests />, loader: requestLoader},
       {path: "task-detail", element: <TaskDetailPage />, loader: commentLoader}
     ]},
-    {path: "messages", element: <Messages />}
+    {path: "messages", element: <Messages />},
+    {path: "items", element: <Items />}
   ]}
   ,
 
