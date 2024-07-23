@@ -20,10 +20,11 @@ function MessageComponent(){
     const [chats, setChats] = useState(null);
     
     const username = localStorage.getItem("username");
+    const token = localStorage.getItem('access_token');;
     
 
     useEffect(() => {
-        connect(localStorage.getItem("username"), onMessageReceived);
+        connect(localStorage.getItem("username"), onMessageReceived, token);
     }, []);
 
     useEffect(() => {
@@ -31,8 +32,10 @@ function MessageComponent(){
             const url = `http://localhost:7777/chats?username=${username}`;
             const headers = new Headers();
             headers.set("Content-Type", "application/json");
+            headers.set("Authorization", `Bearer ${token}`);
             const res = await fetch(url, {
                 method: "GET",
+                mode: "cors",
                 headers
             });
             if (!res.ok){
@@ -87,9 +90,11 @@ function MessageComponent(){
             const receiver = activeChat.split("_").filter(part => part !== username);
             const headers = new Headers();
             headers.set("Content-Type", "application/json");
+            headers.set("Authorization", `Bearer ${token}`);
             const url = `http://localhost:7777/chats/${username}/${receiver}`;
             const res = await fetch(url, {
                 method: "GET",
+                mode: "cors",
                 headers
             });
             const myChatData = await res.json();

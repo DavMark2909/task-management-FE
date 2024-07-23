@@ -13,11 +13,13 @@ function onError() {
     console.log("pizda ebannaya with messaging");
 }
 
-export const connect = (username, onMessageReceived) => {
+export const connect = (username, onMessageReceived, token) => {
     const socket = new SockJS('http://localhost:7777/ws');
     stompClient = Stomp.over(socket);
-
-    stompClient.connect({}, () => onConnected(username, onMessageReceived), onError);
+    const headers = {
+        Authorization: `Bearer ${token}`
+    };
+    stompClient.connect(headers, () => onConnected(username, onMessageReceived), onError);
 };
 
 export const sendMessage = (message, username, recepient, type) => {

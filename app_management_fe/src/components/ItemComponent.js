@@ -71,16 +71,17 @@ function ItemComponent({addOption}){
     }
 
     function lookFor(){
-
+        //implement search engine
     }
 
     return (
         <div className={classes.main}>
+            {error && <span>{error}</span>}
             <div className={classes.filterPane}>
                 <div className={classes.filterName}>
                     <h2>Category</h2>
                 </div>
-                <div className={chatLoading ? classes.filterOptionsLoad : classes.filterOptions}>
+                <div className={categoryLoading ? classes.filterOptionsLoad : classes.filterOptions}>
                     {categoryLoading ? <span>Loading categories...</span> : (
                         <ul className={classes.filterList}>
                             {categories.map((cur, index) => (
