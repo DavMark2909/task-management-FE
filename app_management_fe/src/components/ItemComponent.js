@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 function ItemComponent({addOption}){
 
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("access_token");
     const navigate = useNavigate()
 
     const [categoryLoading, setCategoryLoading] = useState(false);
@@ -23,7 +23,7 @@ function ItemComponent({addOption}){
 
     useEffect(() => {
         const fetchCategories = async () => {
-            const url = "";
+            const url = "http://localhost:8080/api/item/categories";
             try{
                 const data = await getRequest(url, token);
                 setCategories(data);
@@ -39,7 +39,7 @@ function ItemComponent({addOption}){
 
     useEffect(() => {
         const fetchCategory = async() => {
-            const url = `http://?category=${selectedCategory}`;
+            const url = `http://localhost:8080/api/item/getItems/{selectedCategory}`;
             try{
                 const items = await getRequest(url, token);
                 setItems(items);
