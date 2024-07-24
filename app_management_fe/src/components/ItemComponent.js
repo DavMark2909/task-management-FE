@@ -3,6 +3,7 @@ import { getRequest } from "../utils/RequestHandler";
 import classes from "./css/ItemComponent.module.css";
 import searchPicture from "./pictures/search.png";
 import { useNavigate } from "react-router-dom";
+import SelectableOptions from "./SelectableOptions";
 
 function ItemComponent({addOption}){
 
@@ -20,13 +21,15 @@ function ItemComponent({addOption}){
 
     const searchRef = useRef();
 
+    const dummyCat = ["Fruit", "Vegetables", "Meat", "Cheese", "Bread", "Candy", "Tires", "Slides", "Monsters"];
+
 
     useEffect(() => {
         const fetchCategories = async () => {
             const url = "http://localhost:8080/api/item/categories";
             try{
                 const data = await getRequest(url, token);
-                setCategories(data);
+                setCategories(dummyCat);
                 setCategoryLoading(false);
             } catch (error){
                 setCategoryLoading(false);
@@ -39,14 +42,16 @@ function ItemComponent({addOption}){
 
     useEffect(() => {
         const fetchCategory = async() => {
-            const url = `http://localhost:8080/api/item/getItems/{selectedCategory}`;
-            try{
-                const items = await getRequest(url, token);
-                setItems(items);
-                setItemLoading(false);
-            } catch (error){
-                setItemLoading(false);
-                setError("Error laoding items");
+            if (selectedCategory){
+                const url = `http://localhost:8080/api/item/getItems/${selectedCategory}`;
+                try{
+                    const items = await getRequest(url, token);
+                    setItems(items);
+                    setItemLoading(false);
+                } catch (error){
+                    setItemLoading(false);
+                    setError("Error laoding items");
+                }
             }
         };
         fetchCategory();
@@ -82,25 +87,31 @@ function ItemComponent({addOption}){
                     <h2>Category</h2>
                 </div>
                 <div className={categoryLoading ? classes.filterOptionsLoad : classes.filterOptions}>
-                    {categoryLoading ? <span>Loading categories...</span> : (
+                    {categoryLoading ? <span>Loading categories...</span> : categories ? (
                         <ul className={classes.filterList}>
                             {categories.map((cur, index) => (
-                                <li key={index} className={cur.name === selectedCategory ? classes.activeCategory : classes.category} onClick={() => handleCategory(cur.name)}>
-                                    <span>{cur.name}</span>
+                                <li key={index} className={cur === selectedCategory ? classes.activeCategory : classes.category} onClick={() => handleCategory(cur)}>
+                                    <span>{cur}</span>
                                 </li>
                             ))}
                         </ul>
-                    )}
+                    ) : <span>Error</span>}
+                </div>
+                <div className={classes.filterName}>
+                    <h3>Sort by</h3>
+                </div>
+                <div className={classes.options}>
+                    <SelectableOptions options={["Sales", "Quantity", "Popularity"]} />
                 </div>
             </div>
             <div className={items ? classes.itemPane : classes.suggest}>
+                <div className={classes.itemSearcher}>
+                    <input placeholder="Search for" ref={searchRef}/>
+                    <img src={searchPicture} alt="Go" className={classes.searchBtn} onClick={lookFor} />
+                </div>
                 {items ? (
                     <>
                         <div className={classes.itemsname}>{selectedCategory}</div>
-                        <div className={classes.itemSearcher}>
-                            <input placeholder="Search for" ref={searchRef}/>
-                            <img src={searchPicture} alt="Go" className={classes.searchBtn} onClick={lookFor} />
-                        </div>
                         <div className={classes.itemGrid}>
 
                         </div>

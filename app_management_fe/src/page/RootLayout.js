@@ -1,6 +1,7 @@
 import { Outlet, useLoaderData, Await, defer } from "react-router-dom";
 import { Suspense } from "react";
 import MainHeader from "../components/MainHeader";
+import classes from "./css/Items.module.css";
 
 function RootLayout(){
 

@@ -33,7 +33,7 @@ const router = createBrowserRouter([
       {path: "task-detail", element: <TaskDetailPage />, loader: commentLoader}
     ]},
     {path: "messages", element: <Messages />},
-    {path: "items", element: <Items />}
+    {path: "items", element: <Items />},
   ]}
   ,
 
