@@ -107,6 +107,7 @@ function ItemComponent({addOption}){
     }
 
     function handleCategory(name){
+        setItemLoading(true);
         setSelectedCategory(name);
     }
 
@@ -145,20 +146,29 @@ function ItemComponent({addOption}){
                 {/* add a plus sign here with a redirection to create a new item */}
             </div>
             </div>       
+
+
+
+
             <div className={items ? classes1.itemPane : classes1.suggest}>
                 <div className={classes1.itemSearcher}>
                     <input placeholder="Search for" ref={searchRef}/>
                     <img src={searchPicture} alt="Go" className={classes1.searchBtn} onClick={lookFor} />
                 </div>
-                {items ? (
-                    <>
+                {selectedCategory ? (itemLoading ? (
+                    <div className={classes1.suggestSpan}>
+                        <span>Loading...</span>
+                    </div>) :
+                    
+                    (<>
                         <div className={classes1.category}><h2>{selectedCategory}</h2></div>
                         <div className={classes1.itemGrid}>
                             <ul className={classes1.itemList}>
                                 {dummyFruits.map((item, index) => (
                                     <li key={index} className={classes1.item}>
                                         <div className={classes1.itemImg}>
-                                            <img src={defaultImg} alt={item.name}/>
+                                            <img src={defaultImg} alt={item.name} onLoad={(e) => e.target.style.opacity = 1}
+                                                style={{ opacity: 0, transition: 'opacity 0.5s' }}/>
                                         </div>
                                         <div className={classes1.itemContent}>
                                             <span className={classes1.name}>{item.name}</span>
@@ -169,7 +179,7 @@ function ItemComponent({addOption}){
                             </ul>
                         </div>
                     </>
-                ) : 
+                )) : 
                     <div className={classes1.suggestSpan}>
                         <span>Select the desired category</span>
                     </div>
