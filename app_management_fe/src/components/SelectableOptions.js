@@ -1,7 +1,7 @@
 import { useState } from "react";
 import classes from "./css/SelectableOptions.module.css";
 
-function SelectableOptions({options}){
+function SelectableOptions({options, handler}){
 
     const [selectedOptions, setSelectedOption] = useState();
 
@@ -11,6 +11,10 @@ function SelectableOptions({options}){
         } else {
             setSelectedOption(value);
         }
+    }
+
+    function handleApply(){
+        handler(selectedOptions);
     }
 
     return (
