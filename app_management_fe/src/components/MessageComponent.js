@@ -61,7 +61,7 @@ function MessageComponent(){
                 updatedChatRef.current = newChatRooms; // Update ref
                 return newChatRooms;
             });
-        }
+        } 
     }
 
     function lookFor(){

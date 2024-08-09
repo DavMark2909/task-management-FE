@@ -12,7 +12,7 @@ function ItemComponent({addOption}){
     const token = localStorage.getItem("access_token");
     const navigate = useNavigate()
 
-    // console.log(token);
+    console.log(token);
 
     const [categoryLoading, setCategoryLoading] = useState(false);
     const [categories, setCategories] = useState();

@@ -5,7 +5,9 @@ import SockJS from 'sockjs-client';
 let stompClient = null;
 
 function onConnected(username, method){
-    stompClient.subscribe(`/user/${username}/queue/messages`, method);
+    // stompClient.subscribe(`/user/${username}/queue/messages`, method);
+    stompClient.subscribe(`/queue/${username}`, method);
+    // stompClient.subscribe("/topic/messages", method);
     console.log("after subscribing epta")
 }
 
@@ -30,6 +32,7 @@ export const sendMessage = (message, username, recepient, type) => {
             receiver: recepient,
             requestBased: type
         }
-        stompClient.send("/app/chat", {}, JSON.stringify(messagePayload));
+        // stompClient.send("/app/chat", {}, JSON.stringify(messagePayload));
+        stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(messagePayload));
     }
 };
